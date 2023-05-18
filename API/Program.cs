@@ -1,30 +1,29 @@
+using System.Text;
 using API.Data;
+using API.Extensions;
+using API.Interfaces;
+using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    //connections that to be made needs to be specified here.
-    //connection are them made in appsettings.development.json file.
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-    //after making connections in json file, install migrations of creating all the connections.
-    //dotnet tool install --global dotnet-ef --version 7.0.2 is the command to create migration.
-
-    
-});
-
-builder.Services.AddCors();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
