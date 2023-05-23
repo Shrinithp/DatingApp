@@ -24,6 +24,7 @@ namespace API.Controllers
         public AccountController(DataContext context,ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
         [HttpPost("register")] //this is a POST method: api/account/register.
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -45,7 +46,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token =_tokenService.CreateToken(user)
+                //Token =_tokenService.CreateToken(user)
             };
         }
 
@@ -68,7 +69,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                //Token = _TokenServices.CreateToken(user)
             };
         }
         //to check if username already exists in table.

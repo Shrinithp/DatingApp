@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from './_models/user';
+import { AccountService } from './_services/account.service';
 //these are decorators.
 @Component({
   selector: 'app-root',
@@ -13,15 +14,21 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 //title can br written after constructor or before.
   title = 'DatingApp'; //title is of type string.
-  users:any;  //user is of type any.
 
-  constructor(private http: HttpClient){}
+
+  constructor( private accountService: AccountService){}
   ngOnInit(): void {
-    this.http.get("https://localhost:5000/api/users").subscribe({
-      next:response => this.users = response,
-      error: error=>console.log(error),
-      complete:() =>console.log("request completed")
-    })
+    this.setCurrentUser();
+    
+  }
+
+
+  setCurrentUser(){
+    const userString = localStorage.getItem('user');
+    if(!userString) return;
+    const user: User = JSON.parse(userString);
+    this.accountService.setCurrentUser(user);
+    
   }
 
 
