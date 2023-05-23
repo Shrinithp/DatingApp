@@ -26,7 +26,9 @@ export class RegisterComponent implements OnInit{
       next:() =>{
         this.cancel();
       },
-      error: error=> console.log(error)
+      error: error=> {alert(error.error),
+      console.log(error)
+      }
     })
   }
 

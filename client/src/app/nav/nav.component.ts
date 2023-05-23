@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -12,10 +13,11 @@ import { User } from '../_models/user';
 //takes input inside the form and prints in the console.
 export class NavComponent implements OnInit{
   model: any = {};
+ 
 
 
 
-  constructor(public accountService: AccountService) {
+  constructor(public accountService: AccountService, private router:Router) {
     
   }
   ngOnInit(): void{
@@ -34,15 +36,14 @@ export class NavComponent implements OnInit{
     //subscribe says what to do next
     //netflix monthly subscription example .
     this.accountService.login(this.model).subscribe({
-    next: response => {
-      console.log(response);
-      // this.loggedIn = true;
-    },
-    error: error =>console.log(error)
+      //we donot need any response so we are using _
+    next: _=> this.router.navigateByUrl('/members'),
+    error: error =>alert(error.error)
   })
   }
   logout(){
     this.accountService.logout();
+    this.router.navigateByUrl('/');
     // this.loggedIn=false;
     
   }
