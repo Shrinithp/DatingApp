@@ -26,6 +26,9 @@ namespace API.Extensions
             services.AddCors();
             //advantages of using interface is when we use coding for testing it is easy, so we have used IToeknServices.
             services.AddScoped<ITokenService, TokenServices>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            //this is for auto mapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }

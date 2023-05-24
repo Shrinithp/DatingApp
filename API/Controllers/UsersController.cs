@@ -1,5 +1,8 @@
 using API.Data;
+using API.DTO;
 using API.Entities;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,31 +10,39 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 
 {
-    [Authorize]
+    //ive made authorize commented as im not genearting any token
+    // [Authorize]
     public class UsersController: BaseApiController//baseapi is my base class.I'm deriving controllers from that class
     {
-        private readonly DataContext _context;
-        public UsersController(DataContext context)
+        public readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+
+        public UsersController(IUserRepository userRepository, IMapper mapper)
         {
-            _context = context;
+            _mapper = mapper;
+            _userRepository = userRepository;
+
         }
-        [AllowAnonymous]
+
         [HttpGet]
         //code is made async to perfrom multiple tasks. if we use sync code and our database is huge
         //if server gets multiple requests then it will try to complete single task. in order to avoid that single request async code is used.
 
-        public async Task<ActionResult<IEnumerable<AppUser>>>GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>>GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
-            return users;
+             var users = await _userRepository.GetMembersAsync();
+             
+            return Ok(users);
         }
-        [Authorize]
-        [HttpGet("{id}")]
+
+        [HttpGet("{username}")]
         //since we are returning single user so we dont use IEnumerable
-        public async Task<ActionResult<AppUser>>GetUser(int id)
+        public async Task<ActionResult<MemberDto>>GetUser(string username)
         {
-            var user = await _context.Users.FindAsync(id);
-            return user;
+            //after cleaning 
+            return await _userRepository.GetMemberAsync(username);
+            
+            
         }
     }
 }
