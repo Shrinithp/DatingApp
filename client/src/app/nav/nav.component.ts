@@ -37,8 +37,7 @@ export class NavComponent implements OnInit{
     //netflix monthly subscription example .
     this.accountService.login(this.model).subscribe({
       //we donot need any response so we are using _
-    next: _=> this.router.navigateByUrl('/members'),
-    error: error =>alert(error.error)
+    next: _=> this.router.navigateByUrl('/members')
   })
   }
   logout(){

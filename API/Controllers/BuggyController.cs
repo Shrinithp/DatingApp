@@ -20,7 +20,8 @@ namespace API.Controllers
         {
             return "secret text";        
         }
-
+        // It attempts to find a user in the _context.Users collection using a non-existent ID (-1). 
+        // If the user is not found it returns a 404 Not Found response using the NotFound()
          [HttpGet("not-found")]
         public ActionResult<AppUser>GetNotFound()
         {

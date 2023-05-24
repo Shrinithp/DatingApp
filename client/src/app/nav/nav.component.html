@@ -14,15 +14,22 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
             </li>
+
+            
             <!-- as bootstrap is not loading I am using logout outside the dropdown -->
             <li class="nav-item">
               <a class="nav-link"  (click)="logout()" href="#">Logout</a>
             </li>
 
           </ng-container>
+
+          
           
           
         </ul>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/errors" routerLinkActive="active">Erros</a>
+        </li>
 <!-- this will open when user login -->
 <!-- titlecase makes first letter capital -->
         <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>

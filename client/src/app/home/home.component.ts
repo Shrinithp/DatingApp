@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+  //checks if registration mode is active or not.
   registerMode = false;
   users: any;
 
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit{
   }
 
   registerToggle(){
+    //this line will toggle between true and false
     this.registerMode = !this.registerMode;
   }
 
