@@ -8,10 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 namespace API.Services
 {
 
-   public class TokenServices : ITokenService
+   public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
-        public TokenServices(IConfiguration config)
+        public TokenService(IConfiguration config)
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
@@ -36,5 +36,7 @@ namespace API.Services
 
             return tokenHandler.WriteToken(token);
         }
+
+       
     }
 }

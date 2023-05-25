@@ -10,6 +10,7 @@ import { Observable, catchError } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Injectable()
+//HttpInterceptor Intercepts and handles an HttpRequest or HttpResponse
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) {}
@@ -20,7 +21,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       if(error){
         switch(error.status){
           case 400:
-            //normal error sent
+            //normal error sent. error object has error property 
+            //that error property has error nested in it.
             if(error.error.errors){
               const modelStateErrors=[];
               for(const key in error.error.errors){

@@ -69,7 +69,7 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                //Token = _TokenServices.CreateToken(user)
+                //Token =   _tokenService.CreateToken(user)
             };
         }
         //to check if username already exists in table.

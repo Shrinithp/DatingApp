@@ -2,17 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, pipe } from 'rxjs';
 import { User } from '../_models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = "https://localhost:5000/api/";
+  //i should use environment here but im using hard code
+  baseUrl = "http://localhost:5001/api/";
+  // baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<User| null>(null);
   // $ signifyies that its an observable.
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http:HttpClient){}
+
 
   login(model: any){
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(

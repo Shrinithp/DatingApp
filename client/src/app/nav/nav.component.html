@@ -33,7 +33,7 @@
 <!-- this will open when user login -->
 <!-- titlecase makes first letter capital -->
         <div class="dropdown" *ngIf="accountService.currentUser$ |async" dropdown>
-          <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome </a>
+          <!-- <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome </a> -->
           <div class="dropdown-menu mt-3" *dropdownMenu>
             <a class="dropdown-item">Edit Profile</a>
             <a class="dropdown-item" (click)="logout()">Logout</a>
